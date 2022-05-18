@@ -129,5 +129,5 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-# Miscellaneous
-.DS_STORE
+# mac
+.DS_Store
