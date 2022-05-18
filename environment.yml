@@ -1,0 +1,22 @@
+name: fourthbrain-assignments
+
+dependencies:
+    - beautifulsoup4
+    - ipykernel
+    - jupyter
+    - matplotlib
+    - networkx=2.6.3
+    - nltk
+    - pandas
+    - pip>=19.0
+    - python=3.9
+    - pytest
+    - pyyaml
+    - requests
+    - seaborn
+    - pip:
+        - praw
+        - scikit-learn-intelex
+        - scipy==1.8
+        - tensorflow
+        - transformers[sentencepiece]
