@@ -20,3 +20,4 @@ dependencies:
         - scipy==1.8
         - tensorflow
         - transformers[sentencepiece]
+        - shap
