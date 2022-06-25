@@ -1,8 +1,10 @@
 import numpy as np
 import pandas as pd
 from sklearn.ensemble import ExtraTreesRegressor
+from sklearn.linear_model import SGDRegressor
 from sklearn.model_selection import train_test_split
 from sklearn.pipeline import make_pipeline, make_union
+from sklearn.preprocessing import MinMaxScaler, PolynomialFeatures
 from tpot.builtins import StackingEstimator
 from tpot.export_utils import set_param_recursive
 
@@ -12,10 +14,12 @@ features = tpot_data.drop('target', axis=1)
 training_features, testing_features, training_target, testing_target = \
             train_test_split(features, tpot_data['target'], random_state=42)
 
-# Average CV score on the training set was: -1.9535992134211184
+# Average CV score on the training set was: -7.845214340797556
 exported_pipeline = make_pipeline(
-    StackingEstimator(estimator=ExtraTreesRegressor(bootstrap=True, max_features=0.8500000000000001, min_samples_leaf=1, min_samples_split=6, n_estimators=100)),
-    ExtraTreesRegressor(bootstrap=False, max_features=0.8500000000000001, min_samples_leaf=4, min_samples_split=13, n_estimators=100)
+    MinMaxScaler(),
+    PolynomialFeatures(degree=2, include_bias=False, interaction_only=False),
+    StackingEstimator(estimator=SGDRegressor(alpha=0.0, eta0=0.1, fit_intercept=True, l1_ratio=0.25, learning_rate="invscaling", loss="squared_loss", penalty="elasticnet", power_t=0.0)),
+    ExtraTreesRegressor(bootstrap=False, max_features=0.8500000000000001, min_samples_leaf=4, min_samples_split=11, n_estimators=100)
 )
 # Fix random state for all the steps in exported pipeline
 set_param_recursive(exported_pipeline.steps, 'random_state', 42)
